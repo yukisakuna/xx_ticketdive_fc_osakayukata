@@ -1,19 +1,46 @@
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
-
 addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event));
+  event.respondWith(handleRequest(event.request));
 });
 
-async function handleRequest(event) {
-  try {
-    // リクエストされたパスが "/" の場合は index.html を返す
-    if (event.request.url.endsWith('/')) {
-      const response = await getAssetFromKV(event, { mapRequestToAsset: req => new Request(`${new URL(req.url).origin}/index.html`, req) });
-      return response;
+async function handleRequest(request) {
+
+  const html = `
+    <!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>FC先行抽選</title>
+  <script>
+    function redirectWithPost() {
+      var form = document.createElement("form");
+      form.method = "POST";
+      form.action = "https://ticketdive.com/event/fc/ilife2025yukata_osaka";
+
+      var input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "keyword";
+      input.value = "V2kdtKYw";
+
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
     }
-    // 他のファイルリクエストにも対応可能（例：画像やjs）
-    return await getAssetFromKV(event);
-  } catch (e) {
-    return new Response('Not found', { status: 404 });
-  }
+
+    setTimeout(redirectWithPost, 3000);
+  </script>
+</head>
+<body>
+  <h2>ファンクラブ先行抽選ページ</h2>
+  <p>3秒後に申し込みページへ移動します。</p>
+  <p>自動で移動しない場合は、以下のボタンを押してください。</p>
+  <form method="POST" action="https://ticketdive.com/event/fc/ilife2025yukata_osaka">
+    <input type="hidden" name="keyword" value="V2kdtKYw">
+    <input type="submit" value="申し込みページへ">
+  </form>
+</body>
+</html>
+  `;
+  return new Response(html, {
+    headers: { 'content-type': 'text/html;charset=UTF-8' },
+  });
 }
