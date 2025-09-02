@@ -14,12 +14,12 @@ async function handleRequest(request) {
     function redirectWithPost() {
       var form = document.createElement("form");
       form.method = "POST";
-      form.action = "https://ticketdive.com/event/fc/ilife2025yukata_osaka";
+      form.action = "https://ticketdive.com/event/fc/wakaba250911";
 
       var input = document.createElement("input");
       input.type = "hidden";
       input.name = "keyword";
-      input.value = "V2kdtKYw";
+      input.value = "ZT2ZGAkg";
 
       form.appendChild(input);
       document.body.appendChild(form);
@@ -33,8 +33,8 @@ async function handleRequest(request) {
   <h2>ファンクラブ先行抽選ページ</h2>
   <p>3秒後に申し込みページへ移動します。</p>
   <p>自動で移動しない場合は、以下のボタンを押してください。</p>
-  <form method="POST" action="https://ticketdive.com/event/fc/ilife2025yukata_osaka">
-    <input type="hidden" name="keyword" value="V2kdtKYw">
+  <form method="POST" action="https://ticketdive.com/event/fc/wakaba250911">
+    <input type="hidden" name="keyword" value="ZT2ZGAkg">
     <input type="submit" value="申し込みページへ">
   </form>
 </body>
